@@ -15,7 +15,7 @@ public class PersonsDbHelper extends SQLiteOpenHelper {
     private static final String DROP_TABLE_IF_EXISTS_ = "DROP TABLE IF EXISTS ";
     private static final String CREATE_TABLE = "CREATE TABLE ";
     private static final String _OPEN_BRACKET = " (";
-    private static final String INTEGER_PRIMARY_KEY_AUTOINCREMENT_COMMA = "INTEGER PRIMARY KEY AUTOINCREMENT,";
+    private static final String INTEGER_PRIMARY_KEY_AUTOINCREMENT_COMMA = " INTEGER PRIMARY KEY AUTOINCREMENT,";
     private static final String _TEXT_NOT_NULL_COMMA = " TEXT NOT NULL,";
     private static final String _TEXT_NOT_NULL = " TEXT NOT NULL";
     private static final String _INTEGER_COMMA = " INTEGER,";
