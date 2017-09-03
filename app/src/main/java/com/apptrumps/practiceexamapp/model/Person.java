@@ -1,4 +1,4 @@
-package com.apptrumps.practiceexamapp;
+package com.apptrumps.practiceexamapp.model;
 
 /**
  * Created by David on 03-Sep-17.

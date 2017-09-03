@@ -3,11 +3,11 @@ package com.apptrumps.practiceexamapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
+
+import com.apptrumps.practiceexamapp.utils.MockUtils;
 
 public class MainActivity extends AppCompatActivity implements PersonAdapter.ListItemClickListener{
     private RecyclerView rvList;

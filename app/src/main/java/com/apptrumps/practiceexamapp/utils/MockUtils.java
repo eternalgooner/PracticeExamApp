@@ -1,7 +1,8 @@
-package com.apptrumps.practiceexamapp;
+package com.apptrumps.practiceexamapp.utils;
+
+import com.apptrumps.practiceexamapp.model.Person;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by David on 03-Sep-17.
