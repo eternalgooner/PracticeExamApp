@@ -22,7 +22,8 @@
             android:authorities="com.apptrumps.practiceexamapp"
             android:exported="false" />
 
-        <activity android:name=".ShowNotification"></activity>
+        <activity android:name=".ShowNotification" />
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>

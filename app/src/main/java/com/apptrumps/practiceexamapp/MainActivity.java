@@ -1,6 +1,7 @@
 package com.apptrumps.practiceexamapp;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements PersonAdapter.Lis
     @Override
     public void onLIstItemClick(int clickedItem) {
         Log.d("MAIN", "clicked position: " + clickedItem);
-
+        Intent intent = new Intent(MainActivity.this, ShowNotification.class);
+        startActivity(intent);
     }
 }
