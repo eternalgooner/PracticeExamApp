@@ -18,9 +18,11 @@
         </activity>
 
         <provider
-            android:authorities="com.apptrumps.practiceexamapp"
             android:name=".db.PersonContentProvider"
-            android:exported="false"/>
+            android:authorities="com.apptrumps.practiceexamapp"
+            android:exported="false" />
+
+        <activity android:name=".ShowNotification"></activity>
     </application>
 
 </manifest>

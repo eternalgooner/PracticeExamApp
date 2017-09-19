@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity implements PersonAdapter.Lis
     }
 
     private void addEntriesToDb() {
-        ContentValues[] cvArray = new ContentValues[20];
+        ContentValues[] cvArray = new ContentValues[17];
         ArrayList<Person> personList = MockUtils.getPeopleList();
         int counter = 0;
 
+        Log.d("MainActivity", "personList size is: " + personList.size());
         for(Person p : personList){
             ContentValues contentValues = new ContentValues();
             contentValues.put(PersonsContract.PersonsEntry.COLUMN_NAME, p.getName());
@@ -49,11 +50,15 @@ public class MainActivity extends AppCompatActivity implements PersonAdapter.Lis
             cvArray[counter] = contentValues;
             ++counter;
         }
+        for(ContentValues value : cvArray){
+            Log.d("Main", value.get("name") + "");
+        }
         getContentResolver().bulkInsert(PersonsContract.PersonsEntry.CONTENT_URI, cvArray);
     }
 
     @Override
     public void onLIstItemClick(int clickedItem) {
         Log.d("MAIN", "clicked position: " + clickedItem);
+
     }
 }
