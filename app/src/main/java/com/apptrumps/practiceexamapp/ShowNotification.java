@@ -1,17 +1,30 @@
 package com.apptrumps.practiceexamapp;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TimePicker;
 
-public class ShowNotification extends AppCompatActivity {
+import com.apptrumps.practiceexamapp.utils.WakefulReceiver;
+
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
+
+public class ShowNotification extends AppCompatActivity implements TimePicker.OnTimeChangedListener{
 
     private Button btnShowNotification;
+    private TimePicker timePicker;
+    private int hour;
+    private int minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +32,8 @@ public class ShowNotification extends AppCompatActivity {
         setContentView(R.layout.activity_show_notification);
 
         btnShowNotification = (Button) findViewById(R.id.btnShowNotification);
+        timePicker = (TimePicker) findViewById(R.id.timePicker);
+        timePicker.setOnTimeChangedListener(this);
         addClickHandler(btnShowNotification);
     }
 
@@ -32,22 +47,53 @@ public class ShowNotification extends AppCompatActivity {
     }
 
     private void createNewNotification() {
-        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setAutoCancel(true)
-                .setContentTitle("New Notification! - content title")
-                .setContentText("this is the context text");
+//        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setAutoCancel(true)
+//                .setContentTitle("New Notification! - content title")
+//                .setContentText("this is the context text");
+//
+//        //set activity to show in intent
+//        Intent intent = new Intent(this, ResultActivity.class);
+//        intent.putExtra("extras", "This is extra content put in the intent");
+//        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        builder.setContentIntent(resultPendingIntent);
+//
+//        int notificationId = 101;
+//        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//
+//        manager.notify(notificationId, builder.build());
 
-        //set activity to show in intent
-        Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra("extras", "This is extra content put in the intent");
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        builder.setContentIntent(resultPendingIntent);
+        //WakefulReceiver receiver = new WakefulReceiver();
+        //receiver.setAlarm(this);
 
-        int notificationId = 101;
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        manager.notify(notificationId, builder.build());
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, WakefulReceiver.class);
+        intent.putExtra("userTime", "User time chose: " + hour + " : " + minute);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 05);
+
+        //int userHour = timePicker.getHour();
+        //calendar.setTimeInMillis(System.currentTimeMillis());
+
+        //always recomputer calendar after using add, set, roll
+        //Date date = calendar.getTime();
+
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime(), alarmIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 240000, alarmIntent);
+    }
+
+    @Override
+    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+        hour = hourOfDay;
+        this.minute = minute;
+        Log.d("ShowNotification", "time changed - hour is: " + hour + " and minut is: " + minute);
     }
 }

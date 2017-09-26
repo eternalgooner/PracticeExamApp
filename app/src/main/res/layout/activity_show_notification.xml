@@ -5,7 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.apptrumps.practiceexamapp.ShowNotification">
+    tools:context="com.apptrumps.practiceexamapp.ShowNotification"
+    android:weightSum="1">
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="187dp"
+        android:layout_weight="0.48" />
 
     <Button
         android:id="@+id/btnShowNotification"
