@@ -23,6 +23,7 @@ public class ShowNotification extends AppCompatActivity implements TimePicker.On
 
     private Button btnShowNotification;
     private TimePicker timePicker;
+    private Button btnCancelAlarm;
     private int hour;
     private int minute;
 
@@ -32,18 +33,35 @@ public class ShowNotification extends AppCompatActivity implements TimePicker.On
         setContentView(R.layout.activity_show_notification);
 
         btnShowNotification = (Button) findViewById(R.id.btnShowNotification);
+        btnCancelAlarm = (Button) findViewById(R.id.btnCancelAlarm);
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setOnTimeChangedListener(this);
         addClickHandler(btnShowNotification);
+        addClickHandler(btnCancelAlarm);
     }
 
-    private void addClickHandler(Button btnShowNotification) {
+    private void addClickHandler(final Button btnShowNotification) {
         btnShowNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createNewNotification();
+                if(btnShowNotification.getId() == R.id.btnShowNotification){
+                    Log.d("addClickHandler", "btn click - match for notification");
+                    createNewNotification();
+                }else{
+                    Log.d("addClickHandler", "btn click - match for cancel alarm");
+                    cancelNotification();
+                }
+
             }
         });
+    }
+
+    private void cancelNotification() {
+        Intent intent = new Intent(this, WakefulReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 100, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        alarmManager.cancel(sender);
     }
 
     private void createNewNotification() {
@@ -87,7 +105,7 @@ public class ShowNotification extends AppCompatActivity implements TimePicker.On
         //Date date = calendar.getTime();
 
         //alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.getTime(), alarmIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 240000, alarmIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 60000, alarmIntent);
     }
 
     @Override
