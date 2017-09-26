@@ -34,11 +34,13 @@ public class ShowNotification extends AppCompatActivity {
     private void createNewNotification() {
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true)
                 .setContentTitle("New Notification! - content title")
                 .setContentText("this is the context text");
 
         //set activity to show in intent
         Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("extras", "This is extra content put in the intent");
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         builder.setContentIntent(resultPendingIntent);

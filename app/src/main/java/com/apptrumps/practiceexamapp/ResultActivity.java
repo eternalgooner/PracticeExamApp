@@ -14,5 +14,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         txtResult = (TextView) findViewById(R.id.txtResult);
+
+        txtResult.setText(getIntent().getStringExtra("extras"));
     }
 }
